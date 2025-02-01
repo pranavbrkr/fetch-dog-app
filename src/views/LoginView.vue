@@ -1,4 +1,3 @@
-<!-- src/views/LoginView.vue -->
 <template>
   <v-container class="my-5">
     <v-card class="pa-5 mx-auto" max-width="400">
