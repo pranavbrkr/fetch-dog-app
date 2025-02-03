@@ -24,7 +24,7 @@
           </v-col>
         </v-row>
 
-        <v-btn color="primary" @click="searchDogs">Search</v-btn>
+        <v-btn color="primary" @click="searchDogs()">Search</v-btn>
         
         <!-- Dogs Grid -->
         <v-row class="mt-5" v-if="dogs.length">
@@ -137,7 +137,7 @@ export default {
       }
     },
 
-    async searchDogs(customQuery) {
+    async searchDogs(customQuery = null) {
       try {
         // If customQuery is provided (for pagination), use it directly.
         // Otherwise build from local state filters.
@@ -145,6 +145,7 @@ export default {
           ? `https://frontend-take-home-service.fetch.com/dogs/search${customQuery}`
           : this.buildSearchUrl()
 
+        console.log(url)
         const { data } = await axios.get(url, { withCredentials: true })
         const { resultIds, next, prev } = data
 
