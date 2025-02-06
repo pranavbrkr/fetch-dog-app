@@ -29,7 +29,9 @@
           <v-col
             v-for="dog in dogs"
             :key="dog.id"
-            cols="12" sm="6" md="4"
+            cols="12"
+            sm="6"
+            md="3" 
           >
             <DogCard
               :dog="dog"
@@ -164,6 +166,9 @@ export default {
       if (this.selectedSort) {
         params.push(`sort=${this.selectedSort}`)
       }
+
+      params.push(`size=24`)
+
       const queryString = params.length ? `?${params.join('&')}` : ''
       return `https://frontend-take-home-service.fetch.com/dogs/search${queryString}`
     },
