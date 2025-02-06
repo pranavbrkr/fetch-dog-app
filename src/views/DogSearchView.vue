@@ -3,7 +3,6 @@
     <v-card class="pa-5 mx-auto" max-width="1000">
       <v-card-title class="text-h5">Dog Search</v-card-title>
       <v-card-text>
-        <!-- Filter & Sorting Controls -->
         <v-row>
           <v-col cols="12" sm="6">
             <v-select
@@ -26,7 +25,6 @@
 
         <v-btn color="primary" @click="searchDogs()">Search</v-btn>
         
-        <!-- Dogs Grid -->
         <v-row class="mt-5" v-if="dogs.length">
           <v-col
             v-for="dog in dogs"
@@ -41,7 +39,6 @@
           </v-col>
         </v-row>
 
-        <!-- Pagination Controls -->
         <v-row class="d-flex justify-center mt-5" v-if="dogs.length">
           <v-btn
             :disabled="!prevQuery"
@@ -61,7 +58,6 @@
           </v-btn>
         </v-row>
 
-        <!-- Favorites & Match Button -->
         <v-card class="pa-3 mt-4">
           <div>
             <strong>Favorites:</strong> {{ favoriteDogIds.join(', ') }}
@@ -98,7 +94,7 @@ export default {
     return {
       breeds: [],
       selectedBreed: [],
-      selectedSort: 'breed:asc', // Default sort
+      selectedSort: 'breed:asc',
       sortOptions: [
         'breed:asc',
         'breed:desc',
@@ -108,20 +104,16 @@ export default {
         'age:desc',
       ],
       
-      // Pagination & Search Results
       dogs: [],
       nextQuery: null,
       prevQuery: null,
 
-      // Favorites
       favoriteDogIds: [],
       matchedDog: null,
     }
   },
   async created() {
-    // On load, fetch available breeds
     await this.fetchBreeds()
-    // Optionally, you can do an initial search
     await this.searchDogs()
   },
   methods: {
@@ -139,8 +131,6 @@ export default {
 
     async searchDogs(customQuery = null) {
       try {
-        // If customQuery is provided (for pagination), use it directly.
-        // Otherwise build from local state filters.
         let url = customQuery
           ? `https://frontend-take-home-service.fetch.com/dogs/search${customQuery}`
           : this.buildSearchUrl()
@@ -152,7 +142,6 @@ export default {
         this.nextQuery = next || null
         this.prevQuery = prev || null
 
-        // Now fetch the actual dog objects
         const dogsResponse = await axios.post(
           'https://frontend-take-home-service.fetch.com/dogs',
           resultIds,
@@ -166,26 +155,24 @@ export default {
     },
 
     buildSearchUrl() {
-      // Build query params
       let params = []
-      // For breed filters
       if (this.selectedBreed.length > 0) {
         this.selectedBreed.forEach((b) => {
           params.push(`breeds=${encodeURIComponent(b)}`)
         })
       }
-      // For sorting
       if (this.selectedSort) {
         params.push(`sort=${this.selectedSort}`)
       }
-      // Join the query
       const queryString = params.length ? `?${params.join('&')}` : ''
       return `https://frontend-take-home-service.fetch.com/dogs/search${queryString}`
     },
 
     goToPage(queryString) {
-      // `queryString` will be something like `?breeds=...&from=...`
-      // So we call searchDogs with that entire query
+      console.log(queryString)
+      if (queryString.startsWith("/dogs/search")) {
+        queryString = queryString.replace("/dogs/search", "")
+      }
       this.searchDogs(queryString)
     },
 
@@ -206,7 +193,6 @@ export default {
         )
         const matchedDogId = data.match
 
-        // Retrieve matched dog's details
         const dogsResponse = await axios.post(
           'https://frontend-take-home-service.fetch.com/dogs',
           [matchedDogId],
