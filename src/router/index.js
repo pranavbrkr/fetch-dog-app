@@ -4,16 +4,16 @@ import DogSearchView from '@/views/DogSearchView.vue'
 
 const routes = [
   {
-    path: '/',
-    redirect: '/login',
+    path: '/fetch-dogs-app/',
+    redirect: '/fetch-dogs-app/login',
   },
   {
-    path: '/login',
+    path: '/fetch-dogs-app/login',
     name: 'Login',
     component: LoginView,
   },
   {
-    path: '/dogs',
+    path: '/fetch-dogs-app/dogs',
     name: 'Dogs',
     component: DogSearchView,
   },
