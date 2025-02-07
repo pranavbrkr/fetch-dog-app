@@ -6,7 +6,7 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/fetch-dogs-app/',
+  base: '/fetch-dog-app/',
   plugins: [
     vue(),
     vueDevTools(),

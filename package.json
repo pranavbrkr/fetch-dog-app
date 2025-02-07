@@ -1,5 +1,6 @@
 {
-  "name": "fetch-dogs-app",
+  "homepage": "https://pranavbrkr.github.io/fetch-dog-app/",
+  "name": "fetch-dog-app",
   "version": "0.0.0",
   "private": true,
   "type": "module",
