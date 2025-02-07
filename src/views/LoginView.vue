@@ -38,7 +38,21 @@ export default {
   },
   methods: {
     async handleLogin() {
-      // ...
+      if (!this.name || !this.email) {
+        alert('Please provide both name and email.')
+        return
+      }
+      try {
+        await axios.post(
+          'https://frontend-take-home-service.fetch.com/auth/login',
+          { name: this.name, email: this.email },
+          { withCredentials: true }
+        )
+        this.$router.push('/dogs')
+      } catch (error) {
+        console.error('Login error:', error)
+        alert('Login failed. Check console for details.')
+      }
     },
   },
 }
