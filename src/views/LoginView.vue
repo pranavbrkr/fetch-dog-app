@@ -1,26 +1,26 @@
 <template>
-  <v-container class="my-5">
-    <v-card class="pa-5 mx-auto" max-width="400">
-      <v-card-title>Login</v-card-title>
+  <div class="login-background">
+    <v-card class="pa-5" style="width: 400px; max-width: 90%;">
+      <v-card-title class="text-h5">Login</v-card-title>
       <v-card-text>
         <v-text-field
           v-model="name"
           label="Name"
           outlined
           required
-        ></v-text-field>
+        />
         <v-text-field
           v-model="email"
           label="Email"
           outlined
           required
-        ></v-text-field>
+        />
       </v-card-text>
       <v-card-actions>
         <v-btn color="primary" @click="handleLogin">Login</v-btn>
       </v-card-actions>
     </v-card>
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -41,14 +41,11 @@ export default {
         return
       }
       try {
-        // Make sure to include credentials for the cookie
-        const response = await axios.post(
+        await axios.post(
           'https://frontend-take-home-service.fetch.com/auth/login',
           { name: this.name, email: this.email },
           { withCredentials: true }
         )
-        // If successful, the server sets an HttpOnly cookie in the response.
-        // The browser will automatically send it with subsequent requests.
         this.$router.push('/dogs')
       } catch (error) {
         console.error('Login error:', error)
@@ -60,5 +57,16 @@ export default {
 </script>
 
 <style scoped>
-/* local styles here */
+.login-background {
+  /* Fill the viewport */
+  height: 100vh;
+  width: 100vw;
+  /* Background image */
+  background: url('@/assets/login-bg.jpg') center center no-repeat;
+  background-size: cover;
+  /* Use flex to center the card horizontally & vertically */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 </style>
