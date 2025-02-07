@@ -1,7 +1,10 @@
 <template>
   <v-container class="my-5">
     <v-card class="pa-5 mx-auto" max-width="1000">
-      <v-card-title class="text-h5">Dog Search</v-card-title>
+      <v-card-title class="d-flex align-center justify-space-between">
+        <span class="text-h5">Dog Search</span>
+        <v-btn color="error" @click="logout">Logout</v-btn>
+      </v-card-title>
       <v-card-text>
         <v-row>
           <v-col cols="12" sm="6">
@@ -206,6 +209,19 @@ export default {
         this.matchedDog = dogsResponse.data[0]
       } catch (error) {
         console.error('Error fetching match:', error)
+      }
+    },
+
+    async logout() {
+      try {
+        await axios.post(
+          'https://frontend-take-home-service.fetch.com/auth/logout',
+          {},
+          { withCredentials: true }
+        )
+        this.$router.push('/login')
+      } catch (error) {
+        console.error('Logout error:', error)
       }
     },
   },
