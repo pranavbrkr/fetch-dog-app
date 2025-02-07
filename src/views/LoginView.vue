@@ -1,18 +1,21 @@
 <template>
   <div class="login-background">
-    <v-card class="pa-5" style="width: 400px; max-width: 90%;">
-      <v-card-title class="text-h5">Login</v-card-title>
+    <v-card class="login-card pa-5" style="width: 400px; max-width: 90%;">
+      <!-- <v-card-title class="text-h5">Login</v-card-title> -->
       <v-card-text>
+        <!-- Using variant="outlined" for a full rectangular border -->
         <v-text-field
           v-model="name"
           label="Name"
-          outlined
+          variant="outlined"
+          class="white-outlined"
           required
         />
         <v-text-field
           v-model="email"
           label="Email"
-          outlined
+          variant="outlined"
+          class="white-outlined"
           required
         />
       </v-card-text>
@@ -25,7 +28,6 @@
 
 <script>
 import axios from 'axios'
-
 export default {
   name: 'LoginView',
   data() {
@@ -36,21 +38,7 @@ export default {
   },
   methods: {
     async handleLogin() {
-      if (!this.name || !this.email) {
-        alert('Please provide both name and email.')
-        return
-      }
-      try {
-        await axios.post(
-          'https://frontend-take-home-service.fetch.com/auth/login',
-          { name: this.name, email: this.email },
-          { withCredentials: true }
-        )
-        this.$router.push('/dogs')
-      } catch (error) {
-        console.error('Login error:', error)
-        alert('Login failed. Check console for details.')
-      }
+      // ...
     },
   },
 }
@@ -58,15 +46,33 @@ export default {
 
 <style scoped>
 .login-background {
-  /* Fill the viewport */
   height: 100vh;
   width: 100vw;
-  /* Background image */
   background: url('@/assets/login-bg.jpg') center center no-repeat;
   background-size: cover;
-  /* Use flex to center the card horizontally & vertically */
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.login-card {
+  background-color: #eeb48b !important;
+  border-radius: 12px;
+}
+
+/* 
+  Use a deep selector so we can style Vuetify internals.
+  This ensures the text field has a full white background 
+  and a rounded outline on all sides.
+*/
+.white-outlined ::v-deep .v-field {
+  background-color: #fff !important;  /* full white box */
+  border-radius: 8px !important;      /* rounded corners */
+}
+
+/* OPTIONAL: if you want a custom border color or thicker outline, you can also target .v-field__outline */
+.white-outlined ::v-deep .v-field__outline {
+  border-color: #777 !important; /* Example border color */
+  border-width: 2px !important;  /* Thicker border if desired */
 }
 </style>
