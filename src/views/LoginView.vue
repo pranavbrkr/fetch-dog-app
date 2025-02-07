@@ -3,7 +3,6 @@
     <v-card class="login-card pa-5" style="width: 400px; max-width: 90%;">
       <!-- <v-card-title class="text-h5">Login</v-card-title> -->
       <v-card-text>
-        <!-- Using variant="outlined" for a full rectangular border -->
         <v-text-field
           v-model="name"
           label="Name"
@@ -19,8 +18,14 @@
           required
         />
       </v-card-text>
-      <v-card-actions>
-        <v-btn color="primary" @click="handleLogin">Login</v-btn>
+      <v-card-actions class="d-flex justify-center">
+        <v-btn
+          color="primary"
+          class="bold-black-btn"
+          @click="handleLogin"
+        >
+          Login
+        </v-btn>
       </v-card-actions>
     </v-card>
   </div>
@@ -70,23 +75,22 @@ export default {
 }
 
 .login-card {
-  background-color: #eeb48b !important;
+  background-color: #cb7132 !important;
   border-radius: 12px;
 }
 
-/* 
-  Use a deep selector so we can style Vuetify internals.
-  This ensures the text field has a full white background 
-  and a rounded outline on all sides.
-*/
 .white-outlined ::v-deep .v-field {
-  background-color: #fff !important;  /* full white box */
-  border-radius: 8px !important;      /* rounded corners */
+  background-color: #fff !important;
+  border-radius: 8px !important;
 }
 
-/* OPTIONAL: if you want a custom border color or thicker outline, you can also target .v-field__outline */
 .white-outlined ::v-deep .v-field__outline {
-  border-color: #777 !important; /* Example border color */
-  border-width: 2px !important;  /* Thicker border if desired */
+  border-color: #777 !important;
+  border-width: 2px !important;
+}
+
+.bold-black-btn ::v-deep .v-btn__content {
+  color: black !important;
+  font-weight: 700 !important;
 }
 </style>
